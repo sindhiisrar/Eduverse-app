@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Online Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            /* Color Scheme */
+            --primary-color: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary-color: #3f37c9;
+            --accent-color: #f72585;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #ef233c;
+            
+            /* Text Colors */
+            --text-primary: #2b2d42;
+            --text-secondary: #6c757d;
+            --text-light: #f8f9fa;
+            --text-dark: #212529;
+            
+            /* Background Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-dark: #2b2d42;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-circle: 50%;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            
+            /* Transitions */
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        input, textarea, select {
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Layout */
+        .app-container {
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 72px;
+        }
+
+        .page {
+            display: none;
+            padding: var(--spacing-md);
+            animation: fadeIn var(--transition-normal);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Home Page */
+        .profile-container {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-circle);
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            margin: 0 auto var(--spacing-md);
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-normal);
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .welcome-text {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .link-card {
+            background: var(--bg-primary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            border: 1px solid #dee2e6;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .link-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* YouTube Section */
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            margin-bottom: var(--spacing-md);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .playlist-options {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            overflow-x: auto;
+            padding-bottom: var(--spacing-sm);
+            scrollbar-width: thin;
+        }
+
+        .playlist-options::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .playlist-options::-webkit-scrollbar-thumb {
+            background-color: #dee2e6;
+            border-radius: var(--radius-sm);
+        }
+
+        .playlist-btn {
+            background: var(--bg-primary);
+            border: 1px solid #dee2e6;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-xl);
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+        }
+
+        .playlist-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .playlist-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Notes Section */
+        .notes-categories {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            overflow-x: auto;
+            padding-bottom: var(--spacing-sm);
+        }
+
+        .category-btn {
+            background: var(--bg-primary);
+            border: 1px solid #dee2e6;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-xl);
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+        }
+
+        .category-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .notes-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .note-item {
+            background: var(--bg-primary);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            border: 1px solid #dee2e6;
+        }
+
+        .note-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .note-category {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-xl);
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .note-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+
+        .note-preview {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .note-date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Upload Form */
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            background: var(--bg-secondary);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            border: 1px solid #dee2e6;
+        }
+
+        .upload-form select, 
+        .upload-form input, 
+        .upload-form textarea {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid #dee2e6;
+            border-radius: var(--radius-md);
+            background: var(--bg-primary);
+            transition: border-color var(--transition-fast);
+        }
+
+        .upload-form select:focus, 
+        .upload-form input:focus, 
+        .upload-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+        }
+
+        .upload-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .upload-form button {
+            background: var(--primary-color);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: background-color var(--transition-fast);
+        }
+
+        .upload-form button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Admin Access Button */
+        .admin-access {
+            text-align: center;
+            margin: var(--spacing-lg) 0;
+        }
+
+        .admin-btn {
+            background: var(--accent-color);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: background-color var(--transition-fast);
+        }
+
+        .admin-btn:hover {
+            background: #e5177e;
+        }
+
+        /* AI Chat Button */
+        .ai-chat-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            transition: background-color var(--transition-fast);
+            margin: var(--spacing-lg) auto;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .ai-chat-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Note Viewer Modal */
+        .note-viewer-content {
+            padding: var(--spacing-md) 0;
+        }
+
+        .note-viewer-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .note-viewer-content pre {
+            background: var(--bg-secondary);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--spacing-md) 0;
+        }
+
+        .note-viewer-content code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            display: flex;
+            justify-content: space-around;
+            padding: var(--spacing-sm) 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-xs);
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: var(--spacing-sm);
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-btn i {
+            font-size: 1.2rem;
+            transition: all var(--transition-fast);
+        }
+
+        .nav-btn.active {
+            color: var(--primary-color);
+        }
+
+        .nav-btn.active i {
+            transform: translateY(-2px);
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width var(--transition-fast);
+        }
+
+        .nav-btn.active::after {
+            width: 20px;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn var(--transition-fast);
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp var(--transition-normal);
+        }
+
+        .large-modal {
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color var(--transition-fast);
+        }
+
+        .close-btn:hover {
+            color: var(--danger-color);
+        }
+
+        /* Login Button in Modal */
+        .login-btn {
+            background: var(--primary-color);
+            color: white;
+            width: 100%;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            margin-top: var(--spacing-sm);
+            transition: background-color var(--transition-fast);
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Responsive Design */
+        @media (min-width: 576px) {
+            .quick-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .notes-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            html {
+                font-size: 17px;
+            }
+            
+            .content {
+                padding: 0 var(--spacing-md);
+            }
+            
+            .notes-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .notes-list {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .nav-btn span {
+                display: none;
+            }
+            
+            .nav-btn i {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-muted {
+            color: var(--text-secondary);
+        }
+
+        .mt-1 { margin-top: var(--spacing-xs); }
+        .mt-2 { margin-top: var(--spacing-sm); }
+        .mt-3 { margin-top: var(--spacing-md); }
+        .mt-4 { margin-top: var(--spacing-lg); }
+        .mt-5 { margin-top: var(--spacing-xl); }
+
+        .mb-1 { margin-bottom: var(--spacing-xs); }
+        .mb-2 { margin-bottom: var(--spacing-sm); }
+        .mb-3 { margin-bottom: var(--spacing-md); }
+        .mb-4 { margin-bottom: var(--spacing-lg); }
+        .mb-5 { margin-bottom: var(--spacing-xl); }
+
+        /* Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #dee2e6;
+            border-radius: var(--radius-md);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Home Section -->
+        <section id="home" class="page active">
+            <div class="content">
+                <div class="profile-container">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjW85QijTARAP-GUvA28kQu_YvLAg0TYgXhbIGTpU7uR015yFPqrlttdEPgDQZFVXf05uHuQS5Sf2mGXfA7Min6hYiozxbeYPW8BRSpeDPDAPBn-efRtNlaN2k4Fu1buED1dEj8J0fAy5pcL5i-6WFqRp-IUxZCfZ3FlYcCy1olK3kuXg/s220/Eduverse%20new%20logo.png" alt="Profile Image" class="profile-image">
+                    <h1>Welcome to Eduverse App</h1>
+                    <p class="welcome-text">This is your central access point to all my online content and resources.</p>
+                </div>
+                
+                <div class="quick-links">
+                    <div class="link-card" onclick="showPage('youtube')">
+                        <i class="fab fa-youtube"></i>
+                        <h3>YouTube Channel</h3>
+                        <p>Watch my latest videos and tutorials</p>
+                    </div>
+                    <div class="link-card" onclick="showPage('notes')">
+                        <i class="fas fa-book"></i>
+                        <h3>Study Notes</h3>
+                        <p>Access my shared notes and resources</p>
+                    </div>
+                    <div class="link-card" onclick="window.location.href='https://eduverse-education.blogspot.com/';">
+    <i class="fas fa-globe"></i>
+                        <h3>Our Website</h3>
+                        <p>Our Website with a lot of resources is here to serve you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- YouTube Section -->
+        <section id="youtube" class="page">
+            <div class="content">
+                <h2><i class="fab fa-youtube"></i> My YouTube Content</h2>
+                <div class="iframe-container">
+                    <iframe src="https:youtube.com/channel/UCKOklLDptG1A2n49gHSOI9w" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+                <div class="playlist-options">
+                    <button class="playlist-btn active" onclick="changePlaylist('user_uploads', 'PL5f4CDNOcRXyEQEF_ygYiJzNdPDtdi85U')">All Videos</button>
+                    <button class="playlist-btn" onclick="changePlaylist('playlist', 'PL5f4CDNOcRXy3bv964zH1Ie7xYnzOeM1z')">Physics</button>
+                    <button class="playlist-btn" onclick="changePlaylist('playlist', 'PL5f4CDNOcRXy8bHcpeduMqM_9z-wqKt36')">Chemistry</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notes Section -->
+        <section id="notes" class="page">
+            <div class="content">
+                <h2><i class="fas fa-book"></i> Study Notes</h2>
+                
+                <div class="admin-access">
+                    <button onclick="showAdminLogin()" class="admin-btn">
+                        <i class="fas fa-lock"></i> Admin Access
+                    </button>
+                </div>
+                
+                <div class="notes-categories">
+                    <button class="category-btn active" onclick="filterNotes('all')">All Topics</button>
+                    <button class="category-btn" onclick="filterNotes('math')">Mathematics</button>
+                    <button class="category-btn" onclick="filterNotes('physics')">Physics</button>
+                    <button class="category-btn" onclick="filterNotes('chemistry')">Chemistry</button>
+                    <button class="category-btn" onclick="filterNotes('english')">English</button>
+                    <button class="category-btn" onclick="filterNotes('science')">Science</button>
+                    <button class="category-btn" onclick="filterNotes('history')">History</button>
+                    <button class="category-btn" onclick="filterNotes('programming')">Programming</button>
+                    <button class="category-btn" onclick="filterNotes('uncategorized')">Not Categorized</button>
+                </div>
+                
+                <div class="notes-list" id="notes-list">
+                    <!-- Notes will be dynamically added here -->
+                </div>
+                
+                <!-- Admin-only upload section -->
+                <div id="admin-notes-upload" style="display: none;">
+                    <h3>Upload New Notes</h3>
+                    <div class="upload-form">
+                        <select id="note-category">
+                            <option value="math">Mathematics</option>
+                            <option value="physics">Physics</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="english">English</option>
+                            <option value="science">Science</option>
+                            <option value="history">History</option>
+                            <option value="programming">Programming</option>
+                            <option value="uncategorized">Not Categorized</option>
+                        </select>
+                        <input type="text" id="note-title" placeholder="Note title">
+                        <textarea id="note-content" placeholder="Note content (HTML format)"></textarea>
+                        <button onclick="uploadNote()">Upload Note</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Chat Section -->
+        <section id="ai-chat" class="page">
+            <div class="content">
+                <h2><i class="fas fa-globe"></i>Website</h2>
+               <div class="text-center">
+    <a href="https://eduverse-education.blogspot.com" target="_blank" class="ai-chat-btn">
+        <i class="fas fa-external-link-alt"></i> Open Website
+    </a>
+</div>
+            </div>
+        </section>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" onclick="showPage('home')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-btn" onclick="showPage('youtube')">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </button>
+            <button class="nav-btn" onclick="showPage('notes')">
+                <i class="fas fa-book"></i>
+                <span>Notes</span>
+            </button>
+           <button class="nav-btn" onclick="window.open('https://eduverse-education.blogspot.com', '_blank')">
+    <i class="fas fa-globe"></i>
+    <span>AI</span>
+</button>
+        </nav>
+    </div>
+
+
+    <!-- Note Viewer Modal -->
+    <div id="note-viewer" class="modal">
+        <div class="modal-content large-modal">
+            <span class="close-btn" onclick="hideNoteViewer()">&times;</span>
+            <h3 id="note-viewer-title"></h3>
+            <div class="note-viewer-content" id="note-viewer-content"></div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="admin-login" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="hideAdminLogin()">&times;</span>
+            <h3>Admin Login</h3>
+            <input type="password" id="admin-password" placeholder="Enter admin password">
+            <button onclick="checkAdminLogin()" class="login-btn">Login</button>
+        </div>
+    </div>
+
+    <script>
+        // App Configuration
+        const CONFIG = {
+            ADMIN_PASSWORD: "study123",
+            NOTES_CATEGORIES: {
+                math: { name: "Mathematics", color: "#4361ee" },
+                physics: { name: "Physics", color: "#7209b7" },
+                chemistry: { name: "Chemistry", color: "#3a86ff" },
+                english: { name: "English", color: "#ff006e" },
+                science: { name: "Science", color: "#4cc9f0" },
+                history: { name: "History", color: "#f8961e" },
+                programming: { name: "Programming", color: "#f72585" },
+                uncategorized: { name: "Not Categorized", color: "#6c757d" }
+            }
+        };
+
+        // App State
+        const STATE = {
+            currentPage: "home",
+            currentNoteFilter: "all",
+            isAdmin: false,
+            notes: []
+        };
+
+        // DOM Elements
+        const DOM = {
+            pages: document.querySelectorAll(".page"),
+            navButtons: document.querySelectorAll(".nav-btn"),
+            categoryButtons: document.querySelectorAll(".category-btn"),
+            playlistButtons: document.querySelectorAll(".playlist-btn"),
+            notesList: document.getElementById("notes-list"),
+            adminUploadSection: document.getElementById("admin-notes-upload"),
+            noteViewerModal: document.getElementById("note-viewer"),
+            adminLoginModal: document.getElementById("admin-login"),
+            adminPasswordInput: document.getElementById("admin-password"),
+            noteTitleInput: document.getElementById("note-title"),
+            noteContentInput: document.getElementById("note-content"),
+            noteCategorySelect: document.getElementById("note-category"),
+            youtubeIframe: document.querySelector(".iframe-container iframe")
+        };
+
+        // Initialize the App
+        function initApp() {
+            loadNotes();
+            setupEventListeners();
+            showPage("home");
+        }
+
+        // Load Notes from LocalStorage
+        function loadNotes() {
+            const savedNotes = localStorage.getItem("study-notes");
+            if (savedNotes) {
+                STATE.notes = JSON.parse(savedNotes);
+            } else {
+                // Default sample notes
+                STATE.notes = [
+                    {
+                        id: generateId(),
+                        title: "Algebra Basics",
+                        category: "math",
+                        content: "<h3>Algebra Basics</h3><p>Algebra is the branch of mathematics that uses letters and symbols to represent numbers and quantities in formulas and equations.</p><h4>Key Concepts:</h4><ul><li>Variables: Letters that represent unknown values</li><li>Equations: Mathematical statements with an equals sign</li><li>Expressions: Combinations of variables and numbers</li></ul>",
+                        date: new Date().toISOString()
+                    },
+                    {
+                        id: generateId(),
+                        title: "Newton's Laws of Motion",
+                        category: "physics",
+                        content: "<h3>Newton's Laws of Motion</h3><ol><li><strong>First Law:</strong> An object in motion stays in motion unless acted upon by an external force.</li><li><strong>Second Law:</strong> F=ma (Force equals mass times acceleration)</li><li><strong>Third Law:</strong> For every action, there is an equal and opposite reaction.</li></ol>",
+                        date: new Date().toISOString()
+                    },
+                    {
+                        id: generateId(),
+                        title: "Periodic Table Basics",
+                        category: "chemistry",
+                        content: "<h3>Periodic Table Basics</h3><p>The periodic table organizes chemical elements by atomic number and recurring chemical properties.</p><h4>Key Groups:</h4><ul><li>Alkali Metals (Group 1)</li><li>Alkaline Earth Metals (Group 2)</li><li>Halogens (Group 17)</li><li>Noble Gases (Group 18)</li></ul>",
+                        date: new Date().toISOString()
+                    },
+                    {
+                        id: generateId(),
+                        title: "Grammar Rules",
+                        category: "english",
+                        content: "<h3>English Grammar Rules</h3><ul><li>Subject-verb agreement: The verb must agree with the subject in number.</li><li>Proper punctuation: Use commas, periods, and other marks correctly.</li><li>Active vs. passive voice: Prefer active voice for clearer writing.</li></ul>",
+                        date: new Date().toISOString()
+                    },
+                    {
+                        id: generateId(),
+                        title: "Photosynthesis",
+                        category: "science",
+                        content: "<h3>Photosynthesis</h3><p>Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with the help of chlorophyll.</p><h4>Equation:</h4><p>6CO<sub>2</sub> + 6H<sub>2</sub>O → C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6O<sub>2</sub></p>",
+                        date: new Date().toISOString()
+                    },
+                    {
+                        id: generateId(),
+                        title: "World War II Timeline",
+                        category: "history",
+                        content: "<h3>World War II Timeline</h3><ul><li><strong>1939:</strong> Germany invades Poland</li><li><strong>1941:</strong> Pearl Harbor attacked</li><li><strong>1944:</strong> D-Day invasion</li><li><strong>1945:</strong> Atomic bombs dropped on Japan</li></ul>",
+                        date: new Date().toISOString()
+                    },
+                    {
+                        id: generateId(),
+                        title: "HTML Basics",
+                        category: "programming",
+                        content: "<h3>HTML Basics</h3><p>HTML (HyperText Markup Language) is the standard markup language for creating web pages.</p><h4>Basic Structure:</h4><pre>&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n  &lt;title&gt;Page Title&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n  &lt;h1&gt;My Heading&lt;/h1&gt;\n  &lt;p&gt;My paragraph.&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;</pre>",
+                        date: new Date().toISOString()
+                    },
+                    {
+                        id: generateId(),
+                        title: "General Notes",
+                        category: "uncategorized",
+                        content: "<h3>General Notes</h3><p>This is a collection of miscellaneous notes that haven't been categorized yet.</p>",
+                        date: new Date().toISOString()
+                    }
+                ];
+                saveNotes();
+            }
+            renderNotes();
+        }
+
+        // Save Notes to LocalStorage
+        function saveNotes() {
+            localStorage.setItem("study-notes", JSON.stringify(STATE.notes));
+        }
+
+        // Generate Unique ID
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substring(2);
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Navigation
+            DOM.navButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const pageId = this.getAttribute("onclick").match(/'([^']+)'/)[1];
+                    showPage(pageId);
+                });
+            });
+            
+            // Notes Categories
+            DOM.categoryButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const category = this.getAttribute("onclick").match(/'([^']+)'/)[1];
+                    filterNotes(category);
+                });
+            });
+            
+            // YouTube Playlists
+            DOM.playlistButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const [type, id] = this.getAttribute("onclick").match(/'([^']+)'/g).map(match => match.replace(/'/g, ""));
+                    changePlaylist(type, id);
+                });
+            });
+            
+            // Window Resize
+            window.addEventListener("resize", handleWindowResize);
+            
+            // Close modals when clicking outside
+            document.addEventListener("click", function(e) {
+                if (e.target.classList.contains("modal")) {
+                    hideNoteViewer();
+                    hideAdminLogin();
+                }
+            });
+        }
+
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            DOM.pages.forEach(page => page.classList.remove("active"));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add("active");
+            STATE.currentPage = pageId;
+            
+            // Update active nav button
+            DOM.navButtons.forEach(btn => btn.classList.remove("active"));
+            const activeBtn = Array.from(DOM.navButtons).find(btn => 
+                btn.getAttribute("onclick").includes(pageId)
+            );
+            if (activeBtn) activeBtn.classList.add("active");
+            
+            // Special handling for specific pages
+            if (pageId === "youtube") {
+                setTimeout(() => {
+                    if (DOM.youtubeIframe) {
+                        DOM.youtubeIframe.style.height = DOM.youtubeIframe.offsetWidth * 0.5625 + "px";
+                    }
+                }, 100);
+            }
+        }
+
+        // YouTube Playlist Switching
+        function changePlaylist(type, id) {
+            if (DOM.youtubeIframe) {
+                DOM.youtubeIframe.src = `https://www.youtube.com/embed/?listType=${type}&list=${id}`;
+                
+                // Update active playlist button
+                DOM.playlistButtons.forEach(btn => btn.classList.remove("active"));
+                const activeBtn = Array.from(DOM.playlistButtons).find(btn => 
+                    btn.getAttribute("onclick").includes(id)
+                );
+                if (activeBtn) activeBtn.classList.add("active");
+            }
+        }
+
+        // Notes Filtering
+        function filterNotes(category) {
+            STATE.currentNoteFilter = category;
+            
+            // Update active category button
+            DOM.categoryButtons.forEach(btn => btn.classList.remove("active"));
+            const activeBtn = Array.from(DOM.categoryButtons).find(btn => 
+                btn.getAttribute("onclick").includes(category)
+            );
+            if (activeBtn) activeBtn.classList.add("active");
+            
+            renderNotes();
+        }
+
+        // Render Notes
+        function renderNotes() {
+            DOM.notesList.innerHTML = "";
+            
+            const filteredNotes = STATE.currentNoteFilter === "all" 
+                ? [...STATE.notes] 
+                : STATE.notes.filter(note => note.category === STATE.currentNoteFilter);
+            
+            filteredNotes.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            filteredNotes.forEach(note => {
+                const noteElement = document.createElement("div");
+                noteElement.className = "note-item";
+                noteElement.onclick = () => viewNote(note.id);
+                
+                // Create preview (strip HTML tags for preview)
+                const preview = note.content.replace(/<[^>]*>/g, "").substring(0, 100) + (note.content.length > 100 ? "..." : "");
+                
+                noteElement.innerHTML = `
+                    <span class="note-category" style="background: ${CONFIG.NOTES_CATEGORIES[note.category].color}">
+                        ${CONFIG.NOTES_CATEGORIES[note.category].name}
+                    </span>
+                    <div class="note-title">${note.title}</div>
+                    <div class="note-preview">${preview}</div>
+                    <div class="note-date">${formatDate(note.date)}</div>
+                `;
+                
+                DOM.notesList.appendChild(noteElement);
+            });
+        }
+
+        // Format Date
+        function formatDate(dateString) {
+            const options = { year: "numeric", month: "short", day: "numeric" };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // View Note
+        function viewNote(noteId) {
+            const note = STATE.notes.find(n => n.id === noteId);
+            if (note) {
+                document.getElementById("note-viewer-title").textContent = note.title;
+                document.getElementById("note-viewer-content").innerHTML = note.content;
+                showNoteViewer();
+            }
+        }
+
+        // Note Viewer Modal
+        function showNoteViewer() {
+            DOM.noteViewerModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        function hideNoteViewer() {
+            DOM.noteViewerModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Admin Functions
+        function showAdminLogin() {
+            DOM.adminLoginModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+            DOM.adminPasswordInput.focus();
+        }
+
+        function hideAdminLogin() {
+            DOM.adminLoginModal.style.display = "none";
+            document.body.style.overflow = "auto";
+            DOM.adminPasswordInput.value = "";
+        }
+
+        function checkAdminLogin() {
+            const password = DOM.adminPasswordInput.value;
+            if (password === CONFIG.ADMIN_PASSWORD) {
+                STATE.isAdmin = true;
+                DOM.adminUploadSection.style.display = "block";
+                hideAdminLogin();
+                alert("Admin access granted. You can now upload notes.");
+            } else {
+                alert("Incorrect password. Try again.");
+                DOM.adminPasswordInput.focus();
+            }
+        }
+
+        function uploadNote() {
+            const category = DOM.noteCategorySelect.value;
+            const title = DOM.noteTitleInput.value.trim();
+            const content = DOM.noteContentInput.value.trim();
+            
+            if (!title || !content) {
+                alert("Please enter both title and content");
+                return;
+            }
+            
+            const newNote = {
+                id: generateId(),
+                title,
+                category,
+                content,
+                date: new Date().toISOString()
+            };
+            
+            STATE.notes.unshift(newNote);
+            saveNotes();
+            renderNotes();
+            
+            // Clear form
+            DOM.noteTitleInput.value = "";
+            DOM.noteContentInput.value = "";
+            
+            alert("Note uploaded successfully!");
+        }
+
+        // Window Resize Handler
+        function handleWindowResize() {
+            if (STATE.currentPage === "youtube" && DOM.youtubeIframe) {
+                DOM.youtubeIframe.style.height = DOM.youtubeIframe.offsetWidth * 0.5625 + "px";
+            }
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener("DOMContentLoaded", initApp);
+    </script>
+</body>
+</html>
