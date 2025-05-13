@@ -635,56 +635,7 @@
         .chat-send:hover {
             background: var(--primary-light);
         }
-/* Developer Modal Styles */
-.developer-photo {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 15px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid var(--primary-light);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
 
-.developer-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.modal-content h3 {
-    color: var(--primary);
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.modal-content p {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-.modal-content p i {
-    color: var(--primary);
-    width: 20px;
-    text-align: center;
-    margin-right: 5px;
-}
-
-.developer-social {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.developer-social .social-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-    background: var(--primary-light);
-    color: white;
-}
     </style>
 </head>
 <body>
@@ -723,7 +674,7 @@
        <div id="home-content" class="content-section active">
     <div class="action-buttons">
         <a href="https://youtube.com/@eduverse_edu" class="btn youtube" onclick="openYouTube()">
-            <i class="fab fa-youtube"></i> YouTube Channel
+            <i class="fa-brands fa-youtube"></i> YouTube Channel
         </a>
         <a href="https://eduverse-education.blogspot.com" class="btn website" target="eduverse-frame">
             <i class="fas fa-globe"></i> Our Website
@@ -731,25 +682,11 @@
         <a href="https://sindhiisrar.github.io/Eduverse-app-Notes/" class="btn notes" target="eduverse-frame">
             <i class="fas fa-book-open"></i> Study Notes
         </a>
+<a href="#" class="btn notes" target="eduverse-frame">
+            <i class="fa-solid fa-code"></i> Devloper
+        </a>
     </div>
-<!-- Developer Modal -->
-<div class="modal" id="developerModal">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <div class="developer-photo">
-            <img src="developer.jpg" alt="Developer Photo">
-        </div>
-        <h3>Developer Information</h3>
-        <p><i class="fas fa-user"></i> <strong>Name:</strong> Israr Ahmed</p>
-        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> israrasadnan@gmail.com</p>
-        <p><i class="fas fa-code"></i> <strong>Skills:</strong> Web & App Development</p>
-        <div class="developer-social">
-            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-        </div>
-    </div>
-</div>            
+          
             <div class="features-container">
                 <div class="feature-card" style="animation: slideUp 0.5s ease;" onclick="showVideoCategory('english')">
                     <div class="feature-icon" style="background: var(--english);">
@@ -865,15 +802,15 @@
         <!-- Notes Content -->
         <div id="notes-content" class="content-section">
             <div class="features-container">
-                <div class="feature-card" style="animation: slideUp 0.5s ease;" onclick="window.open('https://example.com/english-notes', '_blank')">
+                <div class="feature-card" style="animation: slideUp 0.5s ease;" onclick="window.open('https://sindhiisrar.github.io/Eduverse-app-Notes/english.html', '_blank')">
                     <div class="feature-icon" style="background: var(--english);">
                         <i class="fas fa-file-alt"></i>
                     </div>
                     <h3>English Notes</h3>
-                    <p>Download comprehensive English grammar and literature notes.</p>
+                    <p>Read comprehensive English grammar and literature notes.</p>
                 </div>
                 
-                <div class="feature-card" style="animation: slideUp 0.7s ease;" onclick="window.open('https://example.com/chemistry-notes', '_blank')">
+                <div class="feature-card" style="animation: slideUp 0.7s ease;" onclick="window.open('https://sindhiisrar.github.io/Eduverse-app-Notes/chemistry.html', '_blank')">
                     <div class="feature-icon" style="background: var(--chemistry);">
                         <i class="fas fa-file-alt"></i>
                     </div>
@@ -881,7 +818,7 @@
                     <p>Complete chemistry notes with diagrams and equations.</p>
                 </div>
                 
-                <div class="feature-card" style="animation: slideUp 0.9s ease;" onclick="window.open('https://example.com/physics-notes', '_blank')">
+                <div class="feature-card" style="animation: slideUp 0.9s ease;" onclick="window.open('https://sindhiisrar.github.io/Eduverse-app-Notes/physics.html', '_blank')">
                     <div class="feature-icon" style="background: var(--physics);">
                         <i class="fas fa-file-alt"></i>
                     </div>
