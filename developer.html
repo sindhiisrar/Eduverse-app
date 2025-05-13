@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Israr Ali - Creative Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4D44DB;
+            --accent: #FF6584;
+            --dark: #2D3748;
+            --light: #F7FAFC;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            background-color: #f9f9ff;
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 15px 35px rgba(108, 99, 255, 0.3);
+            margin-bottom: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+        
+        .profile-pic:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            font-weight: 700;
+text-align: center;
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: var(--primary);
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .contact-btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 1rem 0;
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(108, 99, 255, 0.4);
+        }
+        
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .contact-btn:hover::before {
+            left: 100%;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+        }
+        
+        h2 {
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .skill {
+            background: white;
+            color: var(--primary);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .skill:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+        }
+        
+        .about p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.2rem;
+            border-radius: 10px;
+            background: rgba(108, 99, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: rgba(108, 99, 255, 0.1);
+            transform: translateX(10px);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-type {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+        
+        .contact-value {
+            font-size: 1.1rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: #888;
+            font-size: 0.95rem;
+            padding: 2rem 0;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: -150px;
+            right: -150px;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent);
+            bottom: -100px;
+            left: -100px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 1.8rem;
+            }
+            
+            .profile-pic {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <img src="israr.png" alt="Israr Ali" class="profile-pic floating">
+           <div style="text-align: center;">
+    <h1>Israr Ali</h1>
+</div>
+            <p class="tagline">Frontend Web Developer & Mobile App Developer</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://x.com/Israrsindhi01" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.facebook.com/sindhiisrarali" class="social-link"><i class="fab fa-facebook"></i></a>
+            </div>
+        </header>
+        
+        <section class="section about">
+            <h2>About Me</h2>
+            <p>Hello! I'm Israr Ali, a passionate developer specializing in frontend web development and have a knowledge and can develop a mobile application. I create beautiful, functional interfaces that provide exceptional user experiences.</p>
+            <p>With expertise in modern web technologies and mobile frameworks, I build responsive applications that work seamlessly across all devices and platforms. My approach combines technical excellence with creative design thinking.</p>
+        </section>
+        
+        <section class="section skills">
+            <h2>Skills & Expertise</h2>
+            <div class="skills-container">
+                <span class="skill"><i class="fab fa-html5" style="margin-right: 5px;"></i> HTML5</span>
+                <span class="skill"><i class="fab fa-css3-alt" style="margin-right: 5px;"></i> CSS3</span>
+                <span class="skill"><i class="fab fa-js" style="margin-right: 5px;"></i> JavaScript</span>
+                <span class="skill"><i class="fas fa-paint-brush" style="margin-right: 5px;"></i> UI/UX Design</span>
+                <span class="skill"><i class="fas fa-laptop-code" style="margin-right: 5px;"></i> Responsive Design</span>
+                <span class="skill"><i class="fab fa-git-alt" style="margin-right: 5px;"></i> Git</span>
+                <span class="skill"><i class="fas fa-database" style="margin-right: 5px;"></i> Firebase</span>
+                <span class="skill"><i class="fas fa-code" style="margin-right: 5px;"></i> REST APIs</span>
+                <span class="skill"><i class="fab fa-node-js" style="margin-right: 5px;"></i> Node.js</span>
+            </div>
+        </section>
+        
+        <section class="section contact">
+            <h2>Get In Touch</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <span class="contact-type">Email</span>
+                        <span class="contact-value">israrasadnan@gmail.com</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <span class="contact-type">Phone</span>
+                        <span class="contact-value">Available upon request</span>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>&copy; 2025 Israr Ali. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;">Crafted with <i class="fas fa-heart" style="color: var(--accent);"></i> and code</p>
+        </footer>
+    </div>
+
+
+</body>
+</html>
