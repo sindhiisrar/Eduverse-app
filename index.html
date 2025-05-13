@@ -635,6 +635,56 @@
         .chat-send:hover {
             background: var(--primary-light);
         }
+/* Developer Modal Styles */
+.developer-photo {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--primary-light);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.developer-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-content h3 {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-content p i {
+    color: var(--primary);
+    width: 20px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.developer-social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.developer-social .social-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    background: var(--primary-light);
+    color: white;
+}
     </style>
 </head>
 <body>
@@ -682,7 +732,24 @@
             <i class="fas fa-book-open"></i> Study Notes
         </a>
     </div>
-            
+<!-- Developer Modal -->
+<div class="modal" id="developerModal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="developer-photo">
+            <img src="developer.jpg" alt="Developer Photo">
+        </div>
+        <h3>Developer Information</h3>
+        <p><i class="fas fa-user"></i> <strong>Name:</strong> Israr Ahmed</p>
+        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> israrasadnan@gmail.com</p>
+        <p><i class="fas fa-code"></i> <strong>Skills:</strong> Web & App Development</p>
+        <div class="developer-social">
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+</div>            
             <div class="features-container">
                 <div class="feature-card" style="animation: slideUp 0.5s ease;" onclick="showVideoCategory('english')">
                     <div class="feature-icon" style="background: var(--english);">
@@ -1222,7 +1289,22 @@ ipt>
             }
         }, 500);
     }
-
+function showDeveloperInfo() {
+    const modal = document.getElementById('developerModal');
+    modal.style.display = 'block';
+    
+    // Close modal when clicking X
+    document.querySelector('.close-modal').onclick = function() {
+        modal.style.display = 'none';
+    }
+    
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+}
     </script>
 </body>
 </html>
